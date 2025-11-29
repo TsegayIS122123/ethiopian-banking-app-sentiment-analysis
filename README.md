@@ -38,8 +38,7 @@ This analysis addresses critical business questions around user retention, featu
 
 ### Prerequisites
 - Python 3.11+
-- PostgreSQL (optional for Task 3)
-- Git
+- PostgreSQL 
 
 ### Installation & Setup
 
@@ -49,9 +48,45 @@ This analysis addresses critical business questions around user retention, featu
    cd ethiopian-banking-app-sentiment-analysis
 # Set up virtual environment
 
-python -m venv .venv
-.venv\Scripts\activate   
+- python -m venv .venv
+- .venv\Scripts\activate   
 
 # install dependencies
 
 pip install -r requirements.txt
+
+## Task 1: Data Collection & Preprocessing
+
+### Methodology
+
+#### Data Collection
+- Used `google-play-scraper` Python library
+- Targeted three Ethiopian banking apps:
+  - Commercial Bank of Ethiopia (CBE)
+  - Bank of Abyssinia (BOA)
+  - Dashen Bank
+- Collected 500+ reviews per bank to ensure 400+ after cleaning
+- Data includes: review text, rating (1-5), date, user name, bank name
+
+#### Data Preprocessing
+- **Duplicate Removal**: Removed reviews with identical content, user, and date
+- **Missing Data Handling**: 
+  - Removed reviews with empty text
+  - Filled missing ratings with 0
+  - Filled missing user names with 'Anonymous'
+- **Date Normalization**: Converted all dates to YYYY-MM-DD format
+- **Column Standardization**: Selected only required columns (review, rating, date, bank, source)
+
+#### File Structure
+- `scripts/scraper.py` - OOP-based review collection
+- `scripts/preprocessing.py` - Data cleaning pipeline  
+- `config.py` - Configuration management
+- `.env` - Environment variables
+- `data/raw/reviews_raw.csv` - Original scraped data
+- `data/processed/reviews_cleaned.csv` - Cleaned analysis-ready data
+
+### Results
+-  1,200+ total reviews collected
+-  <5% missing data achieved
+-  Clean CSV with required columns
+-  Organized Git repository with clear commits
