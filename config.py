@@ -38,7 +38,9 @@ DATA_PATHS = {
     'processed': 'data/processed',
     'raw_reviews': 'data/raw/reviews_raw.csv',
     'processed_reviews': 'data/processed/reviews_cleaned.csv',
-    'app_info': 'data/raw/app_info.csv'
+    'app_info': 'data/raw/app_info.csv',
+    'sentiment_results': 'data/processed/reviews_with_sentiment.csv',
+    'theme_results': 'data/processed/reviews_with_themes.csv'
 }
 
 # =============================================================================
