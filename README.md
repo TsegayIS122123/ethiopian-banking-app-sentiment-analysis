@@ -109,3 +109,40 @@ Ready for **Task 2**: Sentiment Analysis & Thematic Analysis
 - Perform sentiment analysis on cleaned reviews
 - Extract key themes and pain points per bank
 - Generate actionable recommendations for each bank
+### Task 2: Sentiment & Thematic Analysis
+
+#### Sentiment Analysis
+- **Model**: `distilbert-base-uncased-finetuned-sst-2-english`
+- **Architecture**:
+  - Transformer-based model fine-tuned on SST-2 dataset
+  - Binary classification (Positive/Negative) with confidence scores
+- **Processing**:
+  - Batch processing (32 reviews/batch) for efficiency
+  - GPU acceleration support with CPU fallback
+  - Neutral classification threshold (0.4-0.6 confidence range)
+- **Output**:
+  - `sentiment_label`: POSITIVE/NEGATIVE/NEUTRAL
+  - `sentiment_score`: Confidence score (0-1)
+  - `sentiment_numeric`: Numerical scale (-1 to +1) for aggregation
+
+#### Thematic Analysis
+- **Keyword Extraction**: TF-IDF (Term Frequency-Inverse Document Frequency)
+  - N-gram range: 1-3 (unigrams, bigrams, trigrams)
+  - Maximum features: 100 most significant terms
+  - Stop word removal and minimum document frequency
+- **Theme Clustering**: Rule-based approach
+  - 8 predefined banking-specific theme categories
+  - Pattern matching on cleaned review text
+  - Multi-keyword matching per theme
+- **Theme Categories**:
+  1. Login & Access Issues
+  2. Transaction Problems
+  3. App Performance & Speed
+  4. User Interface & Experience
+  5. Customer Support
+  6. Security Concerns
+  7. Feature Requests
+  8. Network & Connectivity
+
+#### Analysis Pipeline
+- Raw Reviews → Text Cleaning → Sentiment Analysis → Thematic Analysis → Insights
