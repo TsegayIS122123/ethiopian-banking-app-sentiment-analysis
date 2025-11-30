@@ -146,3 +146,46 @@ Ready for **Task 2**: Sentiment Analysis & Thematic Analysis
 
 #### Analysis Pipeline
 - Raw Reviews → Text Cleaning → Sentiment Analysis → Thematic Analysis → Insights
+## 🗄️ Database Implementation (Task 3)
+
+### PostgreSQL Database Schema
+
+#### Banks Table
+- `bank_id` (SERIAL PRIMARY KEY) - Auto-incrementing unique identifier
+- `bank_name` (VARCHAR(100)) - Full bank name
+- `app_name` (VARCHAR(200)) - Mobile application name
+- `created_at` (TIMESTAMP) - Record creation timestamp
+
+#### Reviews Table
+- `review_id` (VARCHAR(50) PRIMARY KEY) - Unique review identifier
+- `bank_id` (INTEGER FOREIGN KEY) - Reference to banks table
+- `review_text` (TEXT) - The actual review content
+- `rating` (INTEGER CHECK 1-5) - Star rating (1-5)
+- `review_date` (DATE) - Date of review
+- `sentiment_label` (VARCHAR(10)) - POSITIVE/NEGATIVE/NEUTRAL
+- `sentiment_score` (DECIMAL(3,2)) - Sentiment confidence score (0-1)
+- `source` (VARCHAR(50)) - Data source (Google Play)
+- `created_at` (TIMESTAMP) - Record creation timestamp
+
+### Database Statistics
+- **Total Reviews**: 1,244 reviews stored
+- **Banks Coverage**: 3 Ethiopian banks
+- **Data Integrity**: Full referential integrity maintained
+- **Performance**: Batch insertion with error handling
+
+### Key SQL Queries
+```sql
+-- Reviews per bank
+SELECT b.bank_name, COUNT(*) as review_count 
+FROM banks b JOIN reviews r ON b.bank_id = r.bank_id 
+GROUP BY b.bank_name;
+
+-- Average rating per bank
+SELECT b.bank_name, ROUND(AVG(r.rating), 2) as avg_rating
+FROM banks b JOIN reviews r ON b.bank_id = r.bank_id 
+GROUP BY b.bank_name;
+
+-- Sentiment distribution
+SELECT sentiment_label, COUNT(*) as count 
+FROM reviews 
+GROUP BY sentiment_label;
